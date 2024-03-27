@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-const Register = ({ navigation }) => {
+import { useNavigation } from '@react-navigation/native';
+
+const Register = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -18,7 +20,10 @@ const Register = ({ navigation }) => {
       return;
     }
 
-   
+    // Xử lý logic đăng ký ở đây (nếu cần)
+
+    // Chuyển hướng đến màn hình khác sau khi đăng ký thành công
+    navigation.navigate('Home');
   };
 
   return (

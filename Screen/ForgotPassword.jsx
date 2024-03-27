@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
- 
-const ForgotPassword = ({navigation}) => {
- 
+import { useNavigation } from '@react-navigation/native'; 
+const ForgotPassword = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
 
   const handleForgotPassword = () => {
@@ -10,8 +10,6 @@ const ForgotPassword = ({navigation}) => {
       Alert.alert('Error', 'Please enter your email');
       return;
     }
-
-    
 
     Alert.alert('Success', 'An email has been sent to reset your password');
   };
@@ -27,7 +25,7 @@ const ForgotPassword = ({navigation}) => {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-      <TouchableOpacity style={styles.button} onPress={handleForgotPassword}>
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Login')}>
         <Text style={styles.buttonText}>Reset Password</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>

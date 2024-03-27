@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from '/Users/Admin/DESGNERNFT/Screen/Login';
-import Register from '/Users/Admin/DESGNERNFT/Screen/Register';
-import ForgotPassword from '/Users/Admin/DESGNERNFT/Screen/ForgotPassword';
+import Login from './Screen/Login';
+import Register from './Screen/Register';
+import ForgotPassword from './Screen/ForgotPassword';
 
 const Stack = createStackNavigator();
 

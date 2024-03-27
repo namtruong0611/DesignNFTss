@@ -4,7 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import NavigationContainer from '@react-navigation/native';
 import {useEffect, useState} from 'react';
  
-const Login = ({ navigation }) => {
+const Login = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
