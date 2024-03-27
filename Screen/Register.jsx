@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const Register = () => {
   const navigation = useNavigation();
@@ -32,29 +39,31 @@ const Register = () => {
       <TextInput
         style={styles.input}
         placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={text => setEmail(text)}
         value={email}
         keyboardType="email-address"
         autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
-        placeholder='Password'
-        onChangeText={(text) => setPassword(text)}
+        placeholder="Password"
+        onChangeText={text => setPassword(text)}
         value={password}
         secureTextEntry={true}
       />
       <TextInput
         style={styles.input}
         placeholder="Confirm Password"
-        onChangeText={(text) => setConfirmPassword(text)}
+        onChangeText={text => setConfirmPassword(text)}
         value={confirmPassword}
         secureTextEntry={true}
       />
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Login')}>
         <Text style={styles.buttonText}>Go to Login</Text>
       </TouchableOpacity>
     </View>
