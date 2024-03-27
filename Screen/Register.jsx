@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-
-const Register = () => {
-  const navigation = useNavigation();
+import { NavigationContainer } from '@react-navigation/native';
+const Register = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleRegister = () => {
     // Kiểm tra tính hợp lệ của thông tin đăng ký
@@ -20,10 +22,7 @@ const Register = () => {
       return;
     }
 
-    // Xử lý logic đăng ký ở đây (nếu cần)
-
-    // Chuyển hướng đến màn hình khác sau khi đăng ký thành công
-    navigation.navigate('Home');
+   
   };
 
   return (
@@ -51,12 +50,19 @@ const Register = () => {
         value={confirmPassword}
         secureTextEntry={true}
       />
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Register</Text>
+      <TouchableOpacity onPress={toggleShowPassword}>
+          <Text style={styles.showPasswordText}>{showPassword ? 'Hide' : 'Show'}</Text>
+        </TouchableOpacity>
+        <View style={styles.boxforgot}>
+        <TouchableOpacity style={styles.regis} onPress={()=>navigation.navigate('Login')}>
+           <Text style={styles.text}>You have account</Text>
+           </TouchableOpacity>
+          
+      </View>
+      <TouchableOpacity style={styles.log}>
+        <Text style={styles.textlog}>Register</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.buttonText}>Go to Login</Text>
-      </TouchableOpacity>
+
     </View>
   );
 };
@@ -93,6 +99,35 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
   },
+  boxforgot :{
+    flexDirection : "row",
+    
+    
+    },
+    regis:{
+     left:110,
+    },
+    text:{
+      color:"blue"
+    },
+  log:{
+    marginTop:20,
+    width:150,
+    height:50,
+    borderRadius:20,
+    backgroundColor:"blue"
+  },
+  textlog:{
+    color:"white",
+    fontWeight:"600",
+    textAlign:"center",
+    lineHeight:50
+
+  },
+  showPasswordText:{
+    textAlign:"right",
+    left:145,
+  }
 });
 
 export default Register;
