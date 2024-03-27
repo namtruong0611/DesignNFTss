@@ -25,12 +25,15 @@ const ForgotPassword = () => {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Login')}>
-        <Text style={styles.buttonText}>Reset Password</Text>
+      {/* <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Login')}>
+        <Text style={styles.buttonText} onPress={()=>navigation.navigate('')}>Reset Password</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
         <Text style={styles.buttonText}>Go Back</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <View>
+        <TouchableOpacity></TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -64,8 +67,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
+     
   },
 });
 

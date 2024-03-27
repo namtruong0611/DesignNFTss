@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
-import NavigationContainer from '@react-navigation/native';
-import {useEffect, useState} from 'react';
- 
+import Icon from 'react-native-vector-icons/FontAwesome'; 
+
 const Login = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
-      <TextInput style={styles.input} placeholder='Email' />
-      <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} />
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.buttonText}>Register</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ForgotPassword')}>
-        <Text style={styles.buttonText}>Forgot Password</Text>
+      <TextInput
+        style={styles.input}
+        placeholder='Email'
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+      />
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder='Password'
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          secureTextEntry={!showPassword}
+        />
+        <TouchableOpacity onPress={toggleShowPassword}>
+          <Icon name={showPassword ? 'eye-slash' : 'eye'} size={20} color="blue" />  
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity style={styles.log}>
+        <Text style={styles.textlog}>LOGIN</Text>
       </TouchableOpacity>
     </View>
   );
@@ -42,19 +61,33 @@ const styles = StyleSheet.create({
     paddingHorizontal:10,
     marginBottom: 10,
   },
-  button: {
-    width: '80%',
-    height: 40,
-    backgroundColor: 'violet',
-    justifyContent: 'center',
+  passwordContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
+  },
+  passwordInput: {
+    flex: 1,
+    height: 40,
+    borderWidth: 1,
+    borderColor: 'gray',
     borderRadius: 5,
+    paddingHorizontal: 10,
     marginBottom: 10,
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
+  log:{
+    marginTop:20,
+    width:150,
+    height:50,
+    borderRadius:20,
+    backgroundColor:"blue"
   },
+  textlog:{
+    color:"white",
+    fontWeight:"600",
+    textAlign:"center",
+    lineHeight:50
+
+  }
 });
 
 export default Login;
