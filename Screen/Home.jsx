@@ -19,6 +19,8 @@ import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 
 
+
+
 const Home = ({ navigation }) => {
     const [postContent, setPostContent] = useState('');
     const [isFormVisible, setIsFormVisible] = useState(false);
