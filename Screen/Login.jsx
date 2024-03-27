@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome'; 
+import { Input } from 'react-native-elements';
 
 const Login = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -24,17 +24,26 @@ const Login = () => {
       />
       <View style={styles.passwordContainer}>
         <TextInput
-          style={styles.passwordInput}
+          style={styles.input}
           placeholder='Password'
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={!showPassword}
         />
-        <TouchableOpacity onPress={toggleShowPassword}>
-          <Icon name={showPassword ? 'eye-slash' : 'eye'} size={20} color="blue" />  
-        </TouchableOpacity>
+       
       </View>
-      <TouchableOpacity style={styles.log}>
+      <TouchableOpacity onPress={toggleShowPassword}>
+          <Text style={styles.showPasswordText}>{showPassword ? 'Hide' : 'Show'}</Text>
+        </TouchableOpacity>
+        <View style={styles.boxforgot}>
+        <TouchableOpacity style={styles.regis} onPress={()=>navigation.navigate('Register')}>
+           <Text style={styles.text}>register</Text>
+           </TouchableOpacity>
+           <TouchableOpacity  onPress={()=>navigation.navigate('ForgotPassword')} >
+           <Text  style={styles.text} >ForgotPasword</Text>
+           </TouchableOpacity>
+      </View>
+      <TouchableOpacity style={styles.log} onPress={()=>navigation.navigate('Home')}>
         <Text style={styles.textlog}>LOGIN</Text>
       </TouchableOpacity>
     </View>
@@ -66,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   passwordInput: {
-    flex: 1,
+    flex:1,
     height: 40,
     borderWidth: 1,
     borderColor: 'gray',
@@ -74,6 +83,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
   },
+  boxforgot :{
+    flexDirection : "row",
+  
+    },
+    regis:{
+ marginRight:10,
+    },
+    text:{
+      color:"blue"
+    },
   log:{
     marginTop:20,
     width:150,
@@ -87,6 +106,10 @@ const styles = StyleSheet.create({
     textAlign:"center",
     lineHeight:50
 
+  },
+  showPasswordText:{
+    textAlign:"right",
+    left:120,
   }
 });
 
