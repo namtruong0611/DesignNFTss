@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import { Input } from 'react-native-elements';
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -15,6 +16,8 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
+              
+
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}

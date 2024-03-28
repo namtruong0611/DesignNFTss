@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import BottomNavigation from './Screen/BottomNavigation'; // Thay vì import Home
+import BottomNavigation from './Screen/BottomNavigation'; 
 import Login from './Screen/Login';
 import Register from './Screen/Register';
 import ForgotPassword from './Screen/ForgotPassword';
@@ -18,7 +18,6 @@ const App = () => {
         <Stack.Screen name="Register" component={Register} options={{ title: 'Register' }} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ title: 'Forgot Password' }} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
-    
         <Stack.Screen name="Main" component={BottomNavigation} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
