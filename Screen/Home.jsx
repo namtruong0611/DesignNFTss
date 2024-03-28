@@ -62,6 +62,9 @@ const Home = ({ navigation }) => {
   const [images, setImages] = useState([]);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
+  const network = 'https://api.devnet.solana.com';
+  const connection = new Connection(network);
+  const wallet = [getPhantomWallet()];
 
   const { publicKey, signMessage, connected } = useWallet();
 
@@ -99,7 +102,7 @@ const Home = ({ navigation }) => {
   const selectImages = () => {
   
   };
-
+   
   return (
     <View style={styles.container}>
        <ConnectionProvider endpoint={endpoint}>
