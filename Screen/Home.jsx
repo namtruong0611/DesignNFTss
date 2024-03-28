@@ -1,134 +1,157 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, StatusBar } from 'react-native';
-
-
-
-import { clusterApiUrl } from '@solana/web3.js';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import {
-    GlowWalletAdapter,
-    LedgerWalletAdapter,
-    PhantomWalletAdapter,
-    SlopeWalletAdapter,
-    SolflareWalletAdapter,
-    SolletExtensionWalletAdapter,
-    SolletWalletAdapter,
-    TorusWalletAdapter,
-} from '@solana/wallet-adapter-wallets';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-
-
-
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  StatusBar,
+  FlatList,
+} from 'react-native';
+import PostItem from './PostItem';
 
 const Home = ({ navigation }) => {
-    const [postContent, setPostContent] = useState('');
-    const [isFormVisible, setIsFormVisible] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [postContent, setPostContent] = useState('');
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [images, setImages] = useState([]);
+  const [comment, setComment] = useState('');
+  const [comments, setComments] = useState([]);
 
-    const handlePost = () => {
-        if (postContent.trim() === '') {
-            Alert.alert('Error', 'Please enter some content for the post.');
-            return;
-        }
-        console.log('Posted:', postContent);
-        setPostContent('');
-        setIsFormVisible(false) 
-    };
+  const handleSendComment = () => {
+    if (comment.trim() === '') {
+      Alert.alert('Error', 'Please enter a comment.');
+      return;
+    }
+    setComments([...comments, comment]);
+    setComment('');
+  };
 
-    return (
-        <View style={styles.container}>
-            <StatusBar backgroundColor="#fff" barStyle="dark-content" />
-            <TouchableOpacity style={styles.waillet}>
+  const handlePost = () => {
+    if (postContent.trim() === '') {
+      Alert.alert('Error', 'Please enter some content for the post.');
+      return;
+    }
+    const newPost = { id: posts.length + 1, content: postContent, images: images };
+    setPosts([newPost, ...posts]);
+    setPostContent('');
+    setIsFormVisible(false);
+    setImages([]);
+  };
 
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.inputContainer}
-                onPress={() => setIsFormVisible(!isFormVisible)}>
-                <Text
-                    style={[styles.input, isFormVisible && styles.expandedInput]}
-                    placeholder="What's on your mind?"
-                    onChangeText={text => setPostContent(text)}
-                    value={postContent}
-                    multiline={true}
-                    numberOfLines={4}
-                    editable={!isFormVisible}  
-                />
-                {!isFormVisible && (
-                    <TextInput style={styles.placeholderText}>.</TextInput>
-                )}
-            </TouchableOpacity>
-            {isFormVisible && (
-                <View style={styles.formContainer}>
-                    <TouchableOpacity style={styles.postButton} onPress={handlePost}>
-                        <Text style={styles.postButtonText}>Post</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.cancelButton}
-                        onPress={() => setIsFormVisible(false)}>
-                        <Text style={styles.cancelButtonText}>Cancel</Text>
-                    </TouchableOpacity>
-                </View>
-            )}
+  const selectImages = () => {
+    // Code to handle image selection
+  };
+
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+      <TouchableOpacity
+        style={styles.inputContainer}
+        onPress={() => setIsFormVisible(!isFormVisible)}>
+        <Text style={styles.outerText}>What's on your mind?</Text>
+        {isFormVisible && (
+          <TextInput
+            style={[styles.input, styles.expandedInput]}
+            placeholder="Write here..."
+            onChangeText={(text) => setPostContent(text)}
+            value={postContent}
+            multiline={true}
+            numberOfLines={4}
+            editable={true}
+          />
+        )}
+      </TouchableOpacity>
+      {isFormVisible && (
+        <View style={styles.formContainer}>
+          <TouchableOpacity style={styles.imageButton} onPress={selectImages}>
+            <Text style={styles.imageButtonText}>Select Images</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.postButton} onPress={handlePost}>
+            <Text style={styles.postButtonText}>Post</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.cancelButton}
+            onPress={() => setIsFormVisible(false)}>
+            <Text style={styles.cancelButtonText}>Cancel</Text>
+          </TouchableOpacity>
         </View>
-    );
+      )}
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <PostItem
+            postContent={item.content}
+            images={item.images}
+            navigation={navigation}
+            postId={item.id}
+          />
+        )}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        padding: 20,
-    },
-    waillet:{
-     justifyContent:"center",   
-     width:100,
-     height:100,
-     backgroundColor:"red"
-    },
-    inputContainer: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 10,
-        padding: 10,
-        marginBottom: 20,
-    },
-    input: {
-        height: 40,
-    },
-    expandedInput: {
-        height: 150,
-    },
-    placeholderText: {
-        position: 'absolute',
-        left: 14,
-        top: 19,
-        color: '#aaa',
-    },
-    formContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    postButton: {
-        backgroundColor: '#4267B2',
-        padding: 15,
-        borderRadius: 10,
-    },
-    postButtonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    cancelButton: {
-        backgroundColor: '#ccc',
-        padding: 15,
-        borderRadius: 10,
-    },
-    cancelButtonText: {
-        color: '#333',
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 20,
+  },
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 20,
+  },
+  outerText: {
+    color: '#aaa',
+  },
+  input: {
+    height: 40,
+  },
+  expandedInput: {
+    height: 150,
+  },
+  formContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  imageButton: {
+    backgroundColor: '#4267B2',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  imageButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  postButton: {
+    backgroundColor: '#4267B2',
+    padding: 15,
+    borderRadius: 10,
+  },
+  postButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  cancelButton: {
+    backgroundColor: '#ccc',
+    padding: 15,
+    borderRadius: 10,
+  },
+  cancelButtonText: {
+    color: '#333',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
 
 export default Home;
