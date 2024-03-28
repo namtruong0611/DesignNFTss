@@ -1,7 +1,9 @@
+
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 const Register = ({ navigation }) => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -31,22 +33,22 @@ const Register = ({ navigation }) => {
       <TextInput
         style={styles.input}
         placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={text => setEmail(text)}
         value={email}
         keyboardType="email-address"
         autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
-        placeholder='Password'
-        onChangeText={(text) => setPassword(text)}
+        placeholder="Password"
+        onChangeText={text => setPassword(text)}
         value={password}
         secureTextEntry={true}
       />
       <TextInput
         style={styles.input}
         placeholder="Confirm Password"
-        onChangeText={(text) => setConfirmPassword(text)}
+        onChangeText={text => setConfirmPassword(text)}
         value={confirmPassword}
         secureTextEntry={true}
       />
@@ -61,6 +63,7 @@ const Register = ({ navigation }) => {
       </View>
       <TouchableOpacity style={styles.log}>
         <Text style={styles.textlog}>Register</Text>
+
       </TouchableOpacity>
 
     </View>
