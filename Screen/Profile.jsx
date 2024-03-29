@@ -1,8 +1,13 @@
-import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-
+import React, { useEffect, useRef, useState } from "react";
+//
+ 
+//
 const ProfileScreen = () => {
+  
+  
   return (
+
     <View style={styles.container}>
       <View style={styles.header}>
         <Image
@@ -24,6 +29,9 @@ const ProfileScreen = () => {
            
           <Text style={styles.statLabel}>Log Out</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.stat}>
+           <Text style={styles.statLabel}>Connect wallet</Text>
+         </TouchableOpacity>
       </View>
     </View>
   );

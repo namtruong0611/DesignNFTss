@@ -38,22 +38,22 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import PostItem from './PostItem';
 
 const Home = ({ navigation }) => {
-  const solNetwork = WalletAdapterNetwork.Mainnet;
-  const endpoint = useMemo(() => clusterApiUrl(solNetwork), [solNetwork]);
+  // const solNetwork = WalletAdapterNetwork.Mainnet;
+  // const endpoint = useMemo(() => clusterApiUrl(solNetwork), [solNetwork]);
   
-  const wallets = useMemo(
-      () => [
-          new PhantomWalletAdapter(),
-          new GlowWalletAdapter(),
-          new SlopeWalletAdapter(),
-          new SolflareWalletAdapter({ solNetwork }),
-          new TorusWalletAdapter(),
-          new LedgerWalletAdapter(),
-          new SolletExtensionWalletAdapter(),
-          new SolletWalletAdapter(),
-      ],
-      [solNetwork]
-  );
+  // const wallets = useMemo(
+  //     () => [
+  //         new PhantomWalletAdapter(),
+  //         new GlowWalletAdapter(),
+  //         new SlopeWalletAdapter(),
+  //         new SolflareWalletAdapter({ solNetwork }),
+  //         new TorusWalletAdapter(),
+  //         new LedgerWalletAdapter(),
+  //         new SolletExtensionWalletAdapter(),
+  //         new SolletWalletAdapter(),
+  //     ],
+  //     [solNetwork]
+  // );
 
 
   const [posts, setPosts] = useState([]);
@@ -62,21 +62,21 @@ const Home = ({ navigation }) => {
   const [images, setImages] = useState([]);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
-  const network = 'https://api.devnet.solana.com';
-  const connection = new Connection(network);
-  const wallet = [getPhantomWallet()];
+  // const network = 'https://api.devnet.solana.com';
+  // const connection = new Connection(network);
+  // const wallet = [getPhantomWallet()];
 
-  const { publicKey, signMessage, connected } = useWallet();
+  // const { publicKey, signMessage, connected } = useWallet();
 
-  const handleButtonPress = async () => {
-    try {
+//   const handleButtonPress = async () => {
+//     try {
       
-        const publicKey = '8sJuXYjfrVpsJkFSMAuo6FwL54eSYegmv9rYC2pQUzWw';
+//         const publicKey = '8sJuXYjfrVpsJkFSMAuo6FwL54eSYegmv9rYC2pQUzWw';
       
-    } catch (error) {
-        console.error('Error:', error);
-    }
-};
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// };
 
   const handleSendComment = () => {
     if (comment.trim() === '') {
@@ -105,7 +105,7 @@ const Home = ({ navigation }) => {
    
   return (
     <View style={styles.container}>
-       <ConnectionProvider endpoint={endpoint}>
+       {/* <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets}>
                 <WalletModalProvider>
                 <WalletMultiButton />
@@ -162,11 +162,9 @@ const Home = ({ navigation }) => {
         )}
                 </WalletModalProvider>
             </WalletProvider>
-        </ConnectionProvider> 
+        </ConnectionProvider>  */}
       <View>
-      <View>
-            <TouchableOpacity title="Check Solana Balance" onPress={handleButtonPress} />
-        </View>
+     
         
         </View>
 
